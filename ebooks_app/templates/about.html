@@ -1,0 +1,96 @@
+{% extends 'master_page.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}
+    eBooks - About
+{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+    <header class="bg-primary text-white text-center py-5">
+        <div class="container">
+            <h1 class="display-4">About Us</h1>
+            <p class="lead">Your gateway to a world of knowledge and stories.</p>
+        </div>
+    </header>
+
+    <!-- About the Site Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h2 class="mb-4">Our Story</h2>
+                    <p>
+                        Welcome to eBooks World, your trusted platform for exploring and downloading an extensive collection of books in various genres. Founded in 2023 by a group of literature enthusiasts and tech experts, eBooks World was created with one goal in mind — to
+                        make reading accessible and enjoyable for everyone, anywhere, at any time.
+                    </p>
+                    <p>
+                        Whether you are a casual reader or a bookworm, our platform provides you with easy access to thousands of books ranging from bestsellers to rare finds. Our mission is to bring stories, knowledge, and inspiration to readers worldwide through our ever-growing
+                        library of digital books.
+                    </p>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://via.placeholder.com/500x300.png?text=eBooks+Site" class="img-fluid" alt="About Us Image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission and Vision Section -->
+    <section class="bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="mb-4">Our Mission</h3>
+                    <p>
+                        Our mission is to foster a global reading culture by making high-quality digital books accessible to people from all walks of life. We believe that reading should be affordable, enjoyable, and simple, and we are committed to providing a seamless and engaging
+                        experience for book lovers everywhere.
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="mb-4">Our Vision</h3>
+                    <p>
+                        We envision a world where every individual has the opportunity to explore, learn, and grow through books. Our goal is to create a space where authors and readers can connect, where stories come alive, and where the power of knowledge is shared across
+                        the globe.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Meet the Team</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                    <div class="card h-100 text-center">
+                        <img src="https://via.placeholder.com/200x200.png?text=Team+Member+1" class="card-img-top mx-auto rounded-circle mt-3" alt="Team Member 1" style="width: 150px; height: 150px;">
+                        <div class="card-body">
+                            <h5 class="card-title">Jane Doe</h5>
+                            <p class="card-text">CEO & Founder</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 text-center">
+                        <img src="https://via.placeholder.com/200x200.png?text=Team+Member+2" class="card-img-top mx-auto rounded-circle mt-3" alt="Team Member 2" style="width: 150px; height: 150px;">
+                        <div class="card-body">
+                            <h5 class="card-title">John Smith</h5>
+                            <p class="card-text">Chief Technology Officer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 text-center">
+                        <img src="https://via.placeholder.com/200x200.png?text=Team+Member+3" class="card-img-top mx-auto rounded-circle mt-3" alt="Team Member 3" style="width: 150px; height: 150px;">
+                        <div class="card-body">
+                            <h5 class="card-title">Emily Clark</h5>
+                            <p class="card-text">Head of Content</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

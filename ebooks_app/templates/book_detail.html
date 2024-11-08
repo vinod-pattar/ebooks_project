@@ -1,0 +1,57 @@
+{% extends 'master_page.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}
+    eBooks - Book Detail
+{% endblock %}
+
+{% block content %}
+
+<header class="bg-primary text-white text-center py-5">
+        <div class="container">
+            <h1 class="display-4">Book Details</h1>
+            <p class="lead">Discover more about this book, its author, and why it’s a must-read.</p>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <div class="row">
+            <!-- Book Image -->
+            <div class="col-md-4">
+                <img src="{{ book.cover_image }}" class="img-fluid" alt="{{ book.title }}">
+            </div>
+
+            <!-- Book Details -->
+            <div class="col-md-8">
+                <h1 class="mb-3">{{ book.title }}</h1>
+                <p class="lead">by <strong>{{ book.author.first_name }} {{ book.author.last_name }}</strong></p>
+                <h3 class="text-success mb-4">₹{{ book.price }}</h3>
+                <a href="#" class="btn btn-primary btn-lg mb-4">Buy Now</a>
+
+                <!-- Dummy Reviews -->
+                <h4>Customer Reviews</h4>
+                <div class="list-group mb-4">
+
+                {% for review in reviews %}
+                    <div class="list-group-item">
+                        {% comment %} <h5 class="mb-1">{{ review.title }}</h5> {% endcomment %}
+                        {% comment %} <div class="star-rating">
+                            {% for i in range(review.rating) %}
+                                <i class="bi bi-star-fill text-warning"></i>
+                            {% endfor %}
+                            {% for i in range(5 - review.rating) %}
+                                <i class="bi bi-star text-secondary"></i>
+                            {% endfor %}
+                        </div> {% endcomment %}
+                        <p class="mb-1">{{ review.comment }}
+                        </p>
+                        <small>Reviewed by {{ review.user.first_name }} {{ review.user.last_name }} on {{ review.created_at }}</small>
+                    </div>
+
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

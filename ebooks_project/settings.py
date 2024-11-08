@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'ebooks_app.CustomUser'
+
 
 # Application definition
 
@@ -37,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_bootstrap5',
     'ebooks_app',
 ]
 
@@ -44,6 +47,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -104,13 +108,24 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+
+# Define available languages
+LANGUAGES = [
+    ('en', 'English'),
+    ('kn', 'Kannada'),
+]
 
 TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
-
+USE_L10N = True
 USE_TZ = True
+
+# Path to store translation files
+LOCALE_PATHS = [
+    BASE_DIR / 'locale/',
+]
 
 
 # Static files (CSS, JavaScript, Images)

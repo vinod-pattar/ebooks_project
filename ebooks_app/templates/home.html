@@ -1,0 +1,234 @@
+{% extends 'master_page.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}
+eBooks - Home
+{% endblock %}
+
+{% block content %}
+<header>
+    <div id="carouselExampleDark" class="carousel carousel-dark slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="10000" style="background-image: url('./assets/images/book-1.jpg');background-size: cover;background-position: center; min-height: 500px; background-repeat: no-repeat;">
+                <!-- <img src="./assets/images/book-1.jpg" class="d-block w-100" alt="Book 1"> -->
+                <div class="carousel-caption d-none d-md-block bg-white bg-opacity-75 px-4">
+                    <h1 class="text-primary">Whispers of the Forgotten World <small class="text-success">By Eleanor
+                            Drake</small></h1>
+                    <p class="lead">In a distant land hidden from modern civilization, a young archaeologist stumbles upon an ancient map that reveals the existence of a forgotten world.</p>
+                    <button class="btn btn-primary">Read More</button>
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="2000" style="background-image: url('./assets/images/book-2.jpg');background-size: cover;background-position: center; min-height: 500px; background-repeat: no-repeat;">
+                <!-- <img src="./assets/images/book-2.jpg" class="d-block w-100" alt="Book 2"> -->
+                <div class="carousel-caption d-none d-md-block bg-white bg-opacity-75 px-4">
+                    <h1 class="text-primary">The Silent Symphony <small class="text-success">By Caleb
+                            Morrigan</small></h1>
+                    <p class="lead">In a city where noise has been outlawed, people communicate through gestures and expressions, living in a world of silence.</p>
+                    <button class="btn btn-primary">Read More</button>
+                </div>
+            </div>
+            <div class="carousel-item" style="background-image: url('./assets/images/book-3.jpg');background-size: cover;background-position: center; min-height: 500px; background-repeat: no-repeat;">
+                <!-- <img src="./assets/images/book-3.jpg" class="d-block w-100" alt="Book 3"> -->
+                <div class="carousel-caption d-none d-md-block bg-white bg-opacity-75 px-4">
+                    <h1 class="text-primary">Beneath the Iron Skies <small class="text-success">By Rosa
+                            Valenti</small></h1>
+                    <p class="lead">n a dystopian future where the sky has been replaced by a sprawling network of iron and steel, the remnants of humanity live in towering cities governed by an oppressive regime.
+                    </p>
+                    <button class="btn btn-primary">Read More</button>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</header>
+
+<main class="container py-5">
+    <h2 class="text-center mb-5 display-5">Latest Books</h2>
+    <div id="books" class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 books-container">
+        {% for book in books %}
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://via.placeholder.com/200x120.png?text=Book+1" class="card-img-top" alt="Book 1">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">by {{ book.author.first_name }} {{ book.author.last_name }}</h6>
+                        <p class="card-text fw-bold">₹{{ book.price }}</p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <a href="#" class="btn btn-primary">View Details</a>
+                        <a href="#" class="btn btn-success">Buy Now</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 py-5">
+        {% for category in categories %}
+            <div class="col">
+                <div class="card h-100 category-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ category.name }}</h5>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+</main>
+
+<div class="py-5 bg-primary mb-5">
+    <div class="container">
+        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators mt-5">
+                <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner w-75 mx-auto">
+                <div class="carousel-item active">
+                    <figure class="text-center py-5">
+                        <blockquote class="blockquote">
+                            <p class="text-white">"This product has completely transformed my workflow. I can't imagine working without it now!"</p>
+                        </blockquote>
+                        <figcaption class="blockquote-footer text-light">
+                            John Doe <cite title="Source Title">New York, USA</cite>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="carousel-item">
+                    <figure class="text-center py-5">
+                        <blockquote class="blockquote">
+                            <p class="text-white">"The customer support team is phenomenal. They went above and beyond to solve my issues."</p>
+                        </blockquote>
+                        <figcaption class="blockquote-footer text-light">
+                            Jane Smith <cite title="Source Title">London, UK</cite>
+                        </figcaption>
+                    </figure>
+                </div>
+                <div class="carousel-item">
+                    <figure class="text-center py-5">
+                        <blockquote class="blockquote">
+                            <p class="text-white">"I've recommended this to all my colleagues. It's a game-changer for our industry."</p>
+                        </blockquote>
+                        <figcaption class="blockquote-footer text-light">
+                            Mike Johnson <cite title="Source Title">Sydney, Australia</cite>
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon text-primary" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">Enquiry Form</h2>
+    <div class="row">
+        <div class="col-12 col-md-9 col-lg-6 mx-auto mb-3">
+            <form method="POST" id="enquiry-form">
+                <div class="row">
+                    <!-- First Name -->
+                    <div class="col-md-6 mb-3">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control" id="firstName" placeholder="Enter your first name" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid first name.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control" id="lastName" placeholder="Enter your last name" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid last name.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Email -->
+                    <div class="col-md-6 mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <div class="input-group has-validation">
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid email address.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Number -->
+                    <div class="col-md-6 mb-3">
+                        <label for="mobile" class="form-label">Mobile Number</label>
+                        <div class="input-group has-validation">
+                            <input type="tel" pattern="[0-9]{10}" class="form-control" id="mobile" placeholder="Enter your mobile number" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid mobile number.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Select Books -->
+                    <div class="col-md-6 mb-3">
+                        <label for="books" class="form-label">Select Books</label>
+                        <div class="input-group has-validation">
+                            <select class="form-select" id="book" required>
+                                <option selected disabled value="">Choose a book...</option>
+                                <option value="book1">Book 1</option>
+                                <option value="book2">Book 2</option>
+                                <option value="book3">Book 3</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a book.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Message Box -->
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <div class="input-group has-validation">
+                        <textarea class="form-control" id="message" rows="4" placeholder="Your message" required></textarea>
+                        <div class="invalid-feedback">
+                            Please enter a message.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

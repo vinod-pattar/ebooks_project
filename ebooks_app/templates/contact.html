@@ -1,0 +1,86 @@
+{% extends 'master_page.html' %}
+{% load django_bootstrap5 %}
+
+
+{% block title %}
+eBooks - Contact
+{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+    <header class="bg-primary text-white text-center py-5">
+        <div class="container">
+            <h1 class="display-4">Contact Us</h1>
+            <p class="lead">We’d love to hear from you! Get in touch with us today.</p>
+        </div>
+    </header>
+
+    <!-- Contact Form and Address Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Contact Form -->
+                <div class="col-lg-6 mb-5">
+                    <h2 class="mb-4">Send us a message</h2>
+                    <form method="POST" id="contact-form">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Your Name" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid Name.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" placeholder="Your Email" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid email address.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" class="form-control" id="subject" placeholder="Subject">
+                            <div class="invalid-feedback">
+                                Please enter a Subject.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" rows="5" placeholder="Your message here..." required></textarea>
+                            <div class="invalid-feedback">
+                                Please enter a message.
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+
+                <!-- Contact Address -->
+                <div class="col-lg-6">
+                    <h2 class="mb-4">Our Contact Details</h2>
+                    <p class="mb-4">Feel free to reach us at any of our offices or use the contact form to drop us a message!</p>
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <h5>📍 Headquarters</h5>
+                            <p class="mb-0">123 eBook St., Knowledge City, 56789</p>
+                            <p>Email: contact@ebooksworld.com</p>
+                        </li>
+                        <li class="mb-3">
+                            <h5>📞 Phone</h5>
+                            <p class="mb-0">+91 (555) 123-4567</p>
+                            <p>Mon - Fri, 9:00 AM - 5:00 PM</p>
+                        </li>
+                        <li class="mb-3">
+                            <h5>💻 Social Media</h5>
+                            <p>
+                                <a href="#" class="text-decoration-none me-2">Twitter</a>
+                                <a href="#" class="text-decoration-none me-2">Facebook</a>
+                                <a href="#" class="text-decoration-none">LinkedIn</a>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
