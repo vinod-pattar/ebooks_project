@@ -2,8 +2,42 @@
 {% load django_bootstrap5 %}
 
 {% block title %}
-    eBooks - Author Detail
+    eBooks - Author: {{ author.first_name }} {{ author.last_name }}
 {% endblock %}
 
 {% block content %}
+<header class="bg-primary text-white text-center py-5">
+        <div class="container">
+            <h1 class="display-4">{{ author.first_name }} {{ author.last_name }}</h1>
+            <p class="lead">Explore the works and journey of one of the greatest authors in our collection.</p>
+        </div>
+    </header>
+
+    <main class="container my-5">
+        <div class="row">
+            <!-- Author Image and Details -->
+            <div class="col-md-4 text-center">
+                <img src="{% if author.profile_picture %}{{ author.profile_picture }}{% else %}https://via.placeholder.com/300x300.png?text=Author+Image{% endif %}" class="img-fluid rounded-circle mb-4" alt="Author Image" style="width: 300px; height: 300px;">
+                <h3 class="mb-3">{{ author.first_name }} {{ author.last_name }}</h3>
+            </div>
+
+            <!-- Books List -->
+            <div class="col-md-8">
+                <h4 class="mb-4">Books by {{ author.first_name }} {{ author.last_name }}</h4>
+                <ul class="list-group">
+                    {% for book in books %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-1">{{ book.title }}</h5>
+                            <p class="mb-0"><strong>Price:</strong> ${{ book.price }}</p>
+                        </div>
+                        <a href="{% url 'book_detail' book.id %}" class="btn btn-primary">View Details</a>
+                    </li>
+                    {% empty %}
+                        <p>No books available.</p>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </main>
 {% endblock %}

@@ -1,4 +1,4 @@
-
+{% load custom_filter %}
 <div class="bg-primary">
     <nav class="navbar navbar-expand-lg bg-primary container " data-bs-theme="dark">
         <div class="container-fluid">
@@ -7,26 +7,34 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            {% url 'home' as home_url %}
+                {% url 'books' as books_url %}
+                {% url 'book_detail' as book_detail_url %}
+                {% url 'authors' as authors_url %}
+                {% url 'author_detail' as author_detail_url %}
+                {% url 'about' as about_url %}
+                {% url 'contact' as contact_url %}
+                {% url 'cart' as cart_url %}
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                        <a class="nav-link {% if request.path == home_url %} active {% endif %}" aria-current="page" href="{% url 'home' %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'books' %}">Books</a>
+                        <a class="nav-link {% if request.path == books_url or request.path == book_detail_url %} active {% endif %}" href="{% url 'books' %}">Books</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'authors' %}">Authors</a>
+                        <a class="nav-link {% if request.path == authors_url or request.path|is_author_detail %} active {% endif %}" href="{% url 'authors' %}">Authors</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about' %}">About</a>
+                        <a class="nav-link {% if request.path == about_url %}active{% endif %}" href="{% url 'about' %}">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                        <a class="nav-link {% if request.path == contact_url %}active{% endif %}" href="{% url 'contact' %}">Contact</a>
                     </li>
                 </ul>
                 <ul class="d-flex navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'cart' %}"><i class="bi bi-cart-fill"
+                        <a class="nav-link {% if request.path == cart_url %}active{% endif %}" href="{% url 'cart' %}"><i class="bi bi-cart-fill"
                                 style="font-size: 1.2rem; color: white;"></i></a>
                     </li>
                     <li class="nav-item">

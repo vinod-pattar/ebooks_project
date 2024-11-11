@@ -17,7 +17,7 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
             {% for author in authors %}
             <div class="col">
-                <a href="./author-details.html" class="card-link">
+                <a href="{% url 'author_detail' author.id %}" class="card-link">
                     <div class="card h-100 text-center">
                         <img src="{% if author.profile_picture %}{{ author.profile_picture }}{% else %}https://via.placeholder.com/150x150.png?text=Author+1{% endif %}" class="card-img-top mx-auto rounded-circle" alt="Author 1" style="width:150px; height:150px;">
                         <div class="card-body">

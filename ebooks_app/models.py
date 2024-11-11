@@ -37,7 +37,7 @@ class Book(models.Model):
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     description = models.TextField()
     published_date = models.DateField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     status = models.CharField(max_length=20, choices=[('draft', 'Draft'), ('published', 'Published')])
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     cover_image = models.ImageField(upload_to='book_covers/', blank=True)

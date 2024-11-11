@@ -1,5 +1,6 @@
 {% extends 'master_page.html' %}
 {% load django_bootstrap5 %}
+{% load custom_filter %}
 
 {% block title %}
     eBooks - Cart
@@ -33,26 +34,35 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            {% for cart_item in cart_items %}
                                 <tr>
                                     <td>
-                                        <strong>Book Title 1</strong><br>
-                                        <small>by Author Name</small>
+                                        <strong>{{ cart_item.book.title }}</strong><br>
+                                        <small>by {{ cart_item.book.author.first_name }} {{ cart_item.book.author.last_name }}</small>
                                     </td>
-                                    <td><input type="number" class="form-control w-50" value="1"></td>
-                                    <td>$15.00</td>
-                                    <td>$15.00</td>
-                                    <td><button class="btn btn-danger btn-sm">Remove</button></td>
-                                </tr>
-                                <tr>
                                     <td>
-                                        <strong>Book Title 2</strong><br>
-                                        <small>by Author Name</small>
+                                        <form action="{% url 'update_cart_item' cart_item.id %}" method="post">
+                                            {% csrf_token %}
+                                            <div class="d-flex align-items-center gap-2">
+                                                <input type="number" class="form-control w-50" value="{{ cart_item.quantity }}" name="quantity">
+                                                <button type="submit" class="btn btn-primary btn-sm">Update</button>
+                                            </div>
+                                        </form>
                                     </td>
-                                    <td><input type="number" class="form-control w-50" value="2"></td>
-                                    <td>$10.00</td>
-                                    <td>$20.00</td>
-                                    <td><button class="btn btn-danger btn-sm">Remove</button></td>
+                                    <td>₹{{ cart_item.book.price }}</td>
+                                    <td>₹{{ cart_item.book.price|multiply:cart_item.quantity }}</td>
+                                    <td>
+                                        <form action="{% url 'remove_from_cart' cart_item.id %}" method="post">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                                        </form>
+                                    </td>
                                 </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="5" class="text-center">No items in cart</td>
+                                </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -65,19 +75,19 @@
                         <ul class="list-unstyled">
                             <li class="d-flex justify-content-between">
                                 <span>Subtotal</span>
-                                <span>$35.00</span>
+                                <span>₹{{ total_price }}</span>
                             </li>
                             <li class="d-flex justify-content-between">
                                 <span>Tax (10%)</span>
-                                <span>$3.50</span>
+                                <span>₹{{ tax }}</span>
                             </li>
                             <li class="d-flex justify-content-between fw-bold">
                                 <span>Total</span>
-                                <span>$38.50</span>
+                                <span>₹{{ grand_total }}</span>
                             </li>
                         </ul>
-                        <button class="btn btn-primary w-100 mb-2">Proceed to Checkout</button>
-                        <button class="btn btn-secondary w-100">Continue Shopping</button>
+                        <a class="btn btn-primary w-100 mb-2 {% if not cart_items %}disabled{% endif %}" href="{% url 'checkout' %}">Proceed to Checkout</a>
+                        <a class="btn {% if not cart_items %}btn-primary{% else %}btn-secondary{% endif %} w-100" href="{% url 'books' %}">Continue Shopping</a>
                     </div>
                 </div>
             </div>
