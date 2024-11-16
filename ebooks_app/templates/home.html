@@ -60,7 +60,7 @@ eBooks - Home
         {% for book in books %}
             <div class="col">
                 <div class="card h-100">
-                    <img src="https://via.placeholder.com/200x120.png?text=Book+1" class="card-img-top" alt="Book 1">
+                    <img src="{{ book.cover_image }}" class="card-img-top" alt="{{ book.title }}" width="200" height="200">
                     <div class="card-body">
                         <h5 class="card-title">{{ book.title }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">by {{ book.author.first_name }} {{ book.author.last_name }}</h6>
@@ -72,6 +72,10 @@ eBooks - Home
                     </div>
                 </div>
             </div>
+            {% empty %}
+                <div class="col">
+                    <p class="text-center">No books found</p>
+                </div>
         {% endfor %}
         
     </div>
@@ -146,8 +150,21 @@ eBooks - Home
     <h2 class="text-center mb-4">Enquiry Form</h2>
     <div class="row">
         <div class="col-12 col-md-9 col-lg-6 mx-auto mb-3">
-            <form method="POST" id="enquiry-form">
-                <div class="row">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+
+            {% if form %}
+                <form method="POST" id="enquiry-form">
+                    {% csrf_token %}
+                {% bootstrap_form form %}
+                {% comment %} <div class="row">
                     <!-- First Name -->
                     <div class="col-md-6 mb-3">
                         <label for="firstName" class="form-label">First Name</label>
@@ -222,11 +239,12 @@ eBooks - Home
                             Please enter a message.
                         </div>
                     </div>
-                </div>
+                </div> {% endcomment %}
 
                 <!-- Submit Button -->
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+            {% endif %}
         </div>
     </div>
 

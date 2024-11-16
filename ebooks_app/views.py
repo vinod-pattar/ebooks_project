@@ -1,16 +1,32 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext as _
-from .models import Book, Category, CustomUser, Review, Cart, CartItem
+from .models import Book, Category, CustomUser, Review, Cart, CartItem, Enquiry
 from django.core.paginator import Paginator
 from decimal import Decimal
+from django.contrib.auth import logout as auth_logout, authenticate, login as auth_login
+from .forms import EnquiryForm, RegisterForm
+from django.contrib import messages
+
 # Create your views here.
 
 def home(request):
     books = Book.objects.filter(status='published')[:5]
     categories = Category.objects.all().order_by('?')[:8]
+
+    if request.method == 'POST':
+        form = EnquiryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Enquiry submitted successfully')
+            return redirect('home')
+    else:
+        if request.user.is_authenticated:
+            form = EnquiryForm(initial={ 'first_name': request.user.first_name, 'last_name': request.user.last_name, 'email': request.user.email, 'phone': request.user.phone })
+        else:
+            form = EnquiryForm()
     
-    return render(request, 'home.html', { 'books': books, 'categories': categories })
+    return render(request, 'home.html', { 'books': books, 'categories': categories, 'form': form })
 
 def books(request):
     books_per_page = 10
@@ -103,10 +119,39 @@ def checkout(request):
     return render(request, 'checkout.html', { })
 
 def login(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            auth_login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'Invalid username or password')
+            return redirect('login')
     return render(request, 'login.html', { })
 
 def register(request):
-    return render(request, 'register.html', { })
+    if request.user.is_authenticated:
+        return redirect('home')
+
+
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Account created successfully')
+            return redirect('login')
+    else:
+        form = RegisterForm()
+    return render(request, 'register.html', { 'form': form })
+
+def logout(request):
+    auth_logout(request)
+    return redirect('home')
 
 def contact(request):
     return render(request, 'contact.html', { })

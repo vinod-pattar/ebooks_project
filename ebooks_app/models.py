@@ -9,6 +9,7 @@ class CustomUser(AbstractUser):
     date_of_birth = models.DateField(null=True, blank=True)
     location = models.CharField(max_length=255, blank=True)
     website = models.URLField(blank=True)
+    phone = models.CharField(max_length=10, blank=True)
     user_type = models.CharField(max_length=20, choices=[('admin', 'Admin'), ('author', 'Author'), ('customer', 'Customer')], default='customer')
 
     def __str__(self):
@@ -93,3 +94,17 @@ class Order(models.Model):
 
     def __str__(self):
         return f'Order for {self.user.username}'
+
+
+class Enquiry(models.Model):
+    class Meta:
+        verbose_name_plural = 'Enquiries'
+
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=10)
+    message = models.TextField()
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

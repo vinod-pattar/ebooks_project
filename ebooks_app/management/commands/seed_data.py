@@ -3,6 +3,7 @@ from ebooks_app.models import CustomUser, Category, Book, Review, Cart, CartItem
 from django.utils import timezone
 from faker import Faker
 import random
+from django.contrib.auth.models import Group
 
 class Command(BaseCommand):
     help = 'Seed database with initial data'
@@ -10,10 +11,13 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         fake = Faker()
 
+        authors_group, created = Group.objects.get_or_create(name="Authors")
+        customers_group, created = Group.objects.get_or_create(name="Customers")
+
         # Create Users
-        user_types = ['admin', 'author', 'customer']
+        user_types = ['author', 'customer']
         users = []
-        for _ in range(10):  # Creating 10 users
+        for _ in range(25):  # Creating 25 users
             user_type = random.choice(user_types)
             user = CustomUser.objects.create_user(
                 username=fake.user_name(),
@@ -25,15 +29,21 @@ class Command(BaseCommand):
                 location=fake.city(),
                 website=fake.url(),
                 user_type=user_type,
+                phone=fake.phone_number(),
                 profile_picture=fake.image_url(),
             )
             user.set_password("password")  # Set a generic password
             user.save()
+
+            if user_type == 'author':
+                authors_group.user_set.add(user)
+            else:
+                customers_group.user_set.add(user)
             users.append(user)
 
         # Create Categories
         categories = []
-        for _ in range(5):  # Creating 5 categories
+        for _ in range(10):  # Creating 10 categories
             category = Category.objects.create(
                 name=fake.word().capitalize(),
                 description=fake.text(max_nb_chars=200)
@@ -43,7 +53,7 @@ class Command(BaseCommand):
         # Create Books
         authors = CustomUser.objects.filter(user_type='author')
         books = []
-        for _ in range(20):  # Creating 20 books
+        for _ in range(50):  # Creating 50 books
             author = random.choice(authors)
             category = random.choice(categories)
             book = Book.objects.create(
