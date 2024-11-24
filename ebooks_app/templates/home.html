@@ -1,5 +1,6 @@
 {% extends 'master_page.html' %}
 {% load django_bootstrap5 %}
+{% load static %}
 
 {% block title %}
 eBooks - Home
@@ -14,7 +15,7 @@ eBooks - Home
             <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
         <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="10000" style="background-image: url('./assets/images/book-1.jpg');background-size: cover;background-position: center; min-height: 500px; background-repeat: no-repeat;">
+            <div class="carousel-item active" data-bs-interval="10000" style="background-image: url('{% static "./images/book-1.jpg" %}');background-size: cover;background-position: center; min-height: 500px; background-repeat: no-repeat;">
                 <!-- <img src="./assets/images/book-1.jpg" class="d-block w-100" alt="Book 1"> -->
                 <div class="carousel-caption d-none d-md-block bg-white bg-opacity-75 px-4">
                     <h1 class="text-primary">Whispers of the Forgotten World <small class="text-success">By Eleanor
@@ -23,7 +24,7 @@ eBooks - Home
                     <button class="btn btn-primary">Read More</button>
                 </div>
             </div>
-            <div class="carousel-item" data-bs-interval="2000" style="background-image: url('./assets/images/book-2.jpg');background-size: cover;background-position: center; min-height: 500px; background-repeat: no-repeat;">
+            <div class="carousel-item" data-bs-interval="2000" style="background-image: url('{% static "./images/book-2.jpg" %}');background-size: cover;background-position: center; min-height: 500px; background-repeat: no-repeat;">
                 <!-- <img src="./assets/images/book-2.jpg" class="d-block w-100" alt="Book 2"> -->
                 <div class="carousel-caption d-none d-md-block bg-white bg-opacity-75 px-4">
                     <h1 class="text-primary">The Silent Symphony <small class="text-success">By Caleb
@@ -32,7 +33,7 @@ eBooks - Home
                     <button class="btn btn-primary">Read More</button>
                 </div>
             </div>
-            <div class="carousel-item" style="background-image: url('./assets/images/book-3.jpg');background-size: cover;background-position: center; min-height: 500px; background-repeat: no-repeat;">
+            <div class="carousel-item" style="background-image: url('{% static "./images/book-3.jpg" %}');background-size: cover;background-position: center; min-height: 500px; background-repeat: no-repeat;">
                 <!-- <img src="./assets/images/book-3.jpg" class="d-block w-100" alt="Book 3"> -->
                 <div class="carousel-caption d-none d-md-block bg-white bg-opacity-75 px-4">
                     <h1 class="text-primary">Beneath the Iron Skies <small class="text-success">By Rosa
