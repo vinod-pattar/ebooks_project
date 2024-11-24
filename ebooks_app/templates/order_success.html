@@ -1,0 +1,26 @@
+{% extends 'master_page.html' %}
+
+{% block title %}
+    eBooks - Checkout
+{% endblock %}
+
+{% block content %}
+        <header class="bg-primary text-white text-center py-5">
+        <div class="container">
+            <h1 class="display-4">Thank you for your order!</h1>
+            <p class="lead">Your order has been placed successfully.</p>
+        </div>
+    </header>
+    <section class="py-5 min-vh-100">
+        <div class="container">
+            <h2>Order Summary</h2>
+            <div class="row">
+                <p>Order ID: {{ order.razorpay_order_id }}</p>
+                <p>Payment ID: {{ order.razorpay_payment_id }}</p>
+                <p>Receipt ID: {{ order.receipt_id }}</p>
+                <p>Amount Paid: {{ order.amount_paid }}</p>
+            </div>
+            <button class="btn btn-primary" onclick="window.location.href='{% url 'books' %}'">Continue Shopping</button>
+        </div>
+    </section>
+{% endblock %}

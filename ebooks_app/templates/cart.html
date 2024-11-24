@@ -70,7 +70,27 @@
 
                 <!-- Pricing Summary -->
                 <div class="col-lg-4">
-                    <div class="border p-3 mb-3 bg-light">
+                    <form action="{% url 'checkout' %}" method="post">
+                        {% csrf_token %}
+                        <div class="border p-3 p-3 mb-3 bg-light">
+                            <h4 class="mb-3">Shipping Address</h4>
+                                {% if addresses %}
+                                <div class="d-flex justify-content-between">
+                                <select name="address" class="form-select mb-3" onchange="">
+                                    {% for address in addresses %}
+                                        <option value="{{ address.id }}">
+                                            {{ address.phone }} {{ address.email }}
+                                            {{ address.address_line1 }}, {{ address.address_line2 }}
+                                            {{ address.city }}, {{ address.state }}, {{ address.country }} - {{ address.pincode }}
+                                        </option>
+                                    {% endfor %}
+                                    </select>
+                                    <a id="edit-address-btn" href="{% url 'edit_address' addresses.0.id %}" class="btn btn-primary">Edit</a>
+                                </div>
+                                {% endif %}
+                                <a href="{% url 'add_address' %}" class="btn btn-primary w-100 mb-2">Add Address</a>
+                            </div>
+                            <div class="border p-3 mb-3 bg-light">
                         <h4 class="mb-3">Order Summary</h4>
                         <ul class="list-unstyled">
                             <li class="d-flex justify-content-between">
@@ -86,11 +106,20 @@
                                 <span>₹{{ grand_total }}</span>
                             </li>
                         </ul>
-                        <a class="btn btn-primary w-100 mb-2 {% if not cart_items %}disabled{% endif %}" href="{% url 'checkout' %}">Proceed to Checkout</a>
+                        <button type="submit" class="btn btn-primary w-100 mb-2 {% if not cart_items or not addresses %}disabled{% endif %}">Proceed to Checkout</button>
                         <a class="btn {% if not cart_items %}btn-primary{% else %}btn-secondary{% endif %} w-100" href="{% url 'books' %}">Continue Shopping</a>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.querySelector('select[name="address"]').addEventListener('change', function() {
+        document.querySelector('#edit-address-btn').href = "{% url 'edit_address' 0 %}".replace('0', this.value);
+    });
+</script>
 {% endblock %}

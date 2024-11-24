@@ -46,7 +46,10 @@
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link mx-2">{{request.user.username | uppercase}}</a>
+                            <a class="nav-link mx-2" >{{request.user.username | uppercase}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link mx-2 {% if request.path == orders_url %}active{% endif %}" href="{% url 'orders' %}">My Orders</a>
                         </li>
                         <li class="nav-item">
                             <a class="btn btn-outline-light" href="{% url 'logout' %}">Logout</a>

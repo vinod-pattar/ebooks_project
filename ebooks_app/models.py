@@ -71,6 +71,26 @@ class Cart(models.Model):
     def __str__(self):
         return f'Cart for {self.user.username}'
 
+
+class Address(models.Model):
+    class Meta:
+        verbose_name_plural = 'Addresses'
+
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    address_line1 = models.CharField(max_length=255)
+    address_line2 = models.CharField(max_length=255, blank=True)
+    phone = models.CharField(max_length=10)
+    email = models.EmailField()
+    city = models.CharField(max_length=255)
+    state = models.CharField(max_length=255)
+    country = models.CharField(max_length=255)
+    pincode = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.address_line1}, {self.city}, {self.state}, {self.country}'
+
 class OrderItem(models.Model):
     order = models.ForeignKey('Order', on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
@@ -88,7 +108,7 @@ class Order(models.Model):
     amount_due = models.DecimalField(max_digits=10, decimal_places=2)
     amount_paid = models.DecimalField(max_digits=10, decimal_places=2)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
-    shipping_address = models.TextField()
+    address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name='orders', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -108,3 +128,4 @@ class Enquiry(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+

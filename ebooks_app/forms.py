@@ -1,5 +1,5 @@
 from django import forms
-from .models import Enquiry, Book, CustomUser
+from .models import Enquiry, Book, CustomUser, Address
 from django.contrib.auth.models import Group
 from django.http import request
 
@@ -36,3 +36,25 @@ class RegisterForm(forms.ModelForm):
         user.groups.add(group)
         return user
 
+class AddressForm(forms.ModelForm):
+    class Meta:
+        model = Address
+        fields = ['user', 'phone', 'email', 'address_line1', 'address_line2', 'country', 'state', 'city', 'pincode']
+        widgets = {
+            'user': forms.HiddenInput(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(AddressForm, self).__init__(*args, **kwargs)
+        self.fields['phone'].widget.attrs['placeholder'] = 'Phone'
+        self.fields['email'].widget.attrs['placeholder'] = 'Email'
+        self.fields['address_line1'].widget.attrs['placeholder'] = 'Address Line 1'
+        self.fields['address_line2'].widget.attrs['placeholder'] = 'Address Line 2'
+
+class UpdateAddressForm(forms.ModelForm):
+    class Meta:
+        model = Address
+        fields = ['id', 'user', 'phone', 'email', 'address_line1', 'address_line2', 'country', 'state', 'city', 'pincode']
+        widgets = {
+            'user': forms.HiddenInput(),
+        }

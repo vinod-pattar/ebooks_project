@@ -5,5 +5,72 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Checkout</h1>
+        <header class="bg-primary text-white text-center py-5">
+        <div class="container">
+            <h1 class="display-4">Checkout</h1>
+            <p class="lead">Pay for your order.</p>
+        </div>
+    </header>
+    <section class="py-5 min-vh-100">
+        <div class="container">
+            <h2>Order Summary</h2>
+            <div class="row">
+                <p>Order ID: {{ order.razorpay_order_id }}</p>
+                <p>Receipt ID: {{ order.receipt_id }}</p>
+                <p>Amount Due: {{ order.amount_due }}</p>
+            </div>
+            <button id="pay-button" class="btn btn-primary">Pay Due Amount</button>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    const payButton = document.getElementById("pay-button");
+
+    var options = {
+        "key": "{{ response.key_id }}",
+        "amount": "{{ response.amount }}",
+        "currency": "INR",
+        "name": "eBooks",
+        "order_id": "{{ response.id }}",
+        "handler": function (response) {
+            window.location.href = "{% url 'order_success' order.id %}?razorpay_payment_id=" + response.razorpay_payment_id + "&razorpay_signature=" + response.razorpay_signature;
+        },
+        "prefill": {
+            "name": "{{ order.user.username }}",
+            "email": "{{ order.user.email }}",
+            "contact": "{{ order.user.phone }}"
+        },
+    }
+
+    payButton.addEventListener('click', () => {
+        let rzp1 = new Razorpay(options);
+        rzp1.open();
+
+        rzp1.on('payment.failed', function (response){
+            alert(response.error.code);
+            alert(response.error.description);
+            alert(response.error.source);
+            alert(response.error.step);
+            alert(response.error.reason);
+            alert(response.error.metadata.order_id);
+            alert(response.error.metadata.payment_id);
+        });
+    })
+    
+
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+    rzp1.on('payment.failed', function (response){
+        alert(response.error.code);
+        alert(response.error.description);
+        alert(response.error.source);
+        alert(response.error.step);
+        alert(response.error.reason);
+        alert(response.error.metadata.order_id);
+        alert(response.error.metadata.payment_id);
+    });
+</script>
 {% endblock %}

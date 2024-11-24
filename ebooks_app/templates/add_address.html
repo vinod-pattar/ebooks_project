@@ -1,0 +1,26 @@
+{% extends 'master_page.html' %}
+{% load django_bootstrap5 %}
+{% load custom_filter %}
+
+{% block title %}
+    eBooks - Add Address
+{% endblock %}
+
+{% block content %}
+    <header class="bg-primary text-white text-center py-5">
+        <div class="container">
+            <h1 class="display-4">Add Address</h1>
+            <p class="lead">Add your address to proceed to checkout.</p>
+        </div>
+    </header>
+
+    <section class="py-5 min-vh-100">
+        <div class="container">
+            <form method="post" class="w-50 mx-auto">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <button type="submit" class="btn btn-primary">Add Address</button>
+            </form>
+        </div>
+    </section>
+{% endblock %}

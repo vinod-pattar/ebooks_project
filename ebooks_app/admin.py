@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser, Category, Book, Review, Cart, CartItem, Order, OrderItem, Enquiry
+from .models import CustomUser, Category, Book, Review, Cart, CartItem, Order, OrderItem, Enquiry, Address
 
 # Register your models here.
 
@@ -47,6 +47,7 @@ admin.site.register(Book)
 admin.site.register(Review)
 admin.site.register(Cart)
 admin.site.register(Order)
+admin.site.register(OrderItem)
 
 
 
@@ -57,3 +58,5 @@ class EnquiryAdmin(admin.ModelAdmin):
     list_per_page = 10
 
 admin.site.register(Enquiry, EnquiryAdmin)
+
+admin.site.register(Address)
